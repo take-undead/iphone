@@ -9,6 +9,7 @@
 - 新規アプリは `apps` で `npx create-expo-app@latest <アプリ名>` で作り、`app.json` の `name` / `slug` / `scheme` と `package.json` の `name` をアプリ名に合わせる。
 - フォルダ構成はシンプルに保つ。ルートには `apps/`、`local/`(機密、git 管理外)、README.md、CLAUDE.md、.gitignore 以外を増やさない。
 - 鍵・秘密情報・VPS の実データ(口座残高・攻撃元 IP など)はリポジトリに入れない。見本データは形だけ合わせた作り物にする。
+- 新しいアプリを作ったら、最初に `app.json` の `ios.supportsTablet` を決める(iPhone 専用なら `false`、iPad でも使うなら `true` + 回転・幅の対応)。詳細は README.md「スマホ(iPhone)とタブレット(iPad)の違いによる注意」。画面の幅は `useWindowDimensions()` で取り、固定 px にしない。
 
 ## 開発環境の前提
 
