@@ -39,8 +39,15 @@ npm start
 
 iPhone の Expo Go で QR を読む(カメラアプリで読むと Expo Go が開く)。VPN が無くても「設定 → 見本データで動かす」で画面は確かめられる。
 
-`npm start` は**トンネル方式**(`expo start --tunnel`)。PC と iPhone が別の Wi-Fi でも、PC に LAN が複数あってもつながる。
-PC の LAN が 1 本で同じ Wi-Fi なら `npm run start:lan` の方が速い。
+iPhone は PC と**同じ Wi-Fi(SSID `nullpo`、192.168.100.x)**につなぐ。PC は有線(192.168.1.x)も持っていて、QR には Wi-Fi 側の住所が入るため、iPhone が別の Wi-Fi にいると届かない。
+別の Wi-Fi から使うときは、住所を指定して起動する:
+
+```powershell
+$env:REACT_NATIVE_PACKAGER_HOSTNAME = "192.168.1.176"   # 有線側。iPhone が 192.168.1.x にいるとき
+npm start
+```
+
+`npm run start:tunnel`(ngrok 経由)はどの網からでも届くが、ngrok 側の都合で「remote gone away」で失敗することがある(2026-10-13 に発生)。最後の手段。
 
 ## 作り
 
