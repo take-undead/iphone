@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "iphone",
-    "slug": "iphone",
+    "name": "sample-app",
+    "slug": "sample-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "iphone",
+    "scheme": "sample-app",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"
