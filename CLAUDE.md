@@ -55,3 +55,4 @@
 - SDK 57 の blank テンプレートに `npx expo install` でパッケージを足すと、`react-dom@19.3.0` が optional peer として引かれて `react@19.2.3` と衝突し `npm install` が ERESOLVE で失敗する。`npx expo install react-dom` で 19.2.3 に固定すると通る(2026-10-13)。
 - `@expo/vector-icons` は expo 本体に同梱されない。使うなら `npx expo install @expo/vector-icons` で足す。Tabs の `tabBarIcon` の `color` は `ColorValue` 型(string ではない)(2026-10-13)。
 - Bash ツールでの `cd` は次の呼び出しに引き継がれず、作業フォルダが直前の呼び出しの場所に戻ることがある。ファイルを作るコマンドは絶対パスで書く(2026-10-13)。
+- Expo の LAN 方式は PC に LAN が複数あると届かない住所(Wi-Fi 側)を QR に入れる。`npm start` はトンネル方式(`expo start --tunnel`、`@expo/ngrok` を devDependencies に入れてある)にし、ログイン不要でつながることを確認した(2026-10-13)。

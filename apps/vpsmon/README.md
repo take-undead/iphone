@@ -34,10 +34,13 @@ python local\make_wg_qr.py
 ```powershell
 cd apps\vpsmon
 npm install
-npx expo start
+npm start
 ```
 
-iPhone の Expo Go で QR を読む。VPN が無くても「設定 → 見本データで動かす」で画面は確かめられる。
+iPhone の Expo Go で QR を読む(カメラアプリで読むと Expo Go が開く)。VPN が無くても「設定 → 見本データで動かす」で画面は確かめられる。
+
+`npm start` は**トンネル方式**(`expo start --tunnel`)。PC と iPhone が別の Wi-Fi でも、PC に LAN が複数あってもつながる。
+PC の LAN が 1 本で同じ Wi-Fi なら `npm run start:lan` の方が速い。
 
 ## 作り
 

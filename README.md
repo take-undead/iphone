@@ -24,10 +24,13 @@ Windows には Xcode がないため、以下の流れで開発する。
 ```powershell
 cd apps\vpsmon
 npm install
-npx expo start
+npm start
 ```
 
 4. 表示された QR コードを iPhone のカメラで読み取ると Expo Go で開く
+
+`npm start` はトンネル方式(`expo start --tunnel`、`@expo/ngrok` を使用)。PC に LAN が複数ある・iPhone が別の Wi-Fi にいる場合でもつながる。
+`npx expo start`(LAN 方式)は、PC が複数の LAN を持つと iPhone から届かない住所を QR に入れることがある(この PC は Wi-Fi 192.168.100.x と有線 192.168.1.x の 2 本)。
 
 App Store 配布用のビルドは `eas build --platform ios`(EAS Build、クラウド)で Mac なしに作れる。Apple Developer Program への加入が必要。
 
