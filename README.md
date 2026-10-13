@@ -35,6 +35,8 @@ App Store 配布用のビルドは `eas build --platform ios`(EAS Build、クラ
 
 Expo のアプリは 1 つのコードで iPhone と iPad の両方に入れられる(ユニバーサル)。違いが出るのは次の点。
 
+**このリポジトリの方針: まず iPhone で形を作り、iPad は後でチューニングする。** 新しいアプリは `supportsTablet: false` で始め、iPad に対応するときに `true` に変えて以下の点を整える。
+
 ### 1. `app.json` の `ios.supportsTablet`
 
 | 値 | iPad での動き | 使いどころ |
