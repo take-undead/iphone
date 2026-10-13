@@ -11,6 +11,28 @@
 - 鍵・秘密情報・VPS の実データ(口座残高・攻撃元 IP など)はリポジトリに入れない。見本データは形だけ合わせた作り物にする。
 - **まず iPhone で形を作り、iPad は後でチューニングする**(利用者の方針 2026-10-13)。新しいアプリは `app.json` の `ios.supportsTablet` を `false` で始め、iPad 対応は後から `true` に変えて回転・幅を整える(`false`→`true` は対応を足す向きなので後からでよい。逆は審査で断られることがある)。詳細は README.md「スマホ(iPhone)とタブレット(iPad)の違いによる注意」。画面の幅は最初から `useWindowDimensions()` で取り、固定 px にしない(後の iPad 対応を楽にするため)。
 
+## 基本の作法(新しいアプリを作る前に必ず確認し、外れるときは利用者に聞く)
+
+後から変えると手戻りが大きい項目。既定は次のとおりで、利用者から指示が無い限り変えない。
+
+| 項目 | 既定 | 警告 |
+|---|---|---|
+| 画面の向き | 縦固定(`orientation: "portrait"`) | 横画面の指示は受けていない。横対応は別のレイアウト設計が要るので勝手に `default` にしない |
+| iPad | `ios.supportsTablet: false` | まず iPhone。iPad は後で `true` にして整える(逆向きの変更は審査で断られる) |
+| 画面サイズ | `useWindowDimensions()` で取る | 固定 px の幅・高さを画面の構成に使わない。チャートなど高さが要るものも画面サイズから決める |
+| セーフエリア | `SafeAreaView` か `react-native-safe-area-context` を使う | ノッチ・Dynamic Island・ホームバーに重ねない。タブ・ヘッダーは expo-router に任せる |
+| 文字の大きさ | OS の設定に従う(Dynamic Type) | `allowFontScaling={false}` で止めない。大きい文字で崩れないか 1 回は確かめる |
+| 外観 | ライト／ダーク両対応(`userInterfaceStyle: "automatic"`) | 色は `theme.ts` のパレットから取り、直書きしない |
+| 識別子 | `ios.bundleIdentifier` は `com.<名前>.<アプリ>` 形式で最初に決める | ストアに出した後は変えられない。`slug` と `scheme` も合わせて決める |
+| 版 | `version` と `ios.buildNumber` | ストア提出のたびに上げる。手で管理する(EAS の自動加算は使うなら設定で明示) |
+| 通信 | HTTPS。平文 HTTP は IP 直接(WireGuard の内側)だけ | `NSAllowsArbitraryLoads` は本当に要るアプリだけ。入れた理由を README に書く |
+| 権限 | 使う機能の分だけ `ios.infoPlist` に `NS〜UsageDescription` を日本語で書く | 説明が無いと起動時に落ちる・審査で弾かれる。使わない権限は書かない |
+| キーボード | 入力欄のある画面は `KeyboardAvoidingView` | 入力欄がキーボードに隠れないか実機で確かめる |
+| 保存 | 設定は AsyncStorage、機密は `expo-secure-store` | 鍵・トークンを AsyncStorage やソースに置かない |
+| 機密 | `local/`(git 管理外)に置く | リポジトリは公開になっていることがある。push 前に機密が無いか確かめる |
+| 見本データ | 通信無しで全画面を確かめられる「見本モード」を持つ | 実データをリポジトリに入れない(作り物にする) |
+| 言語 | 画面の文字は日本語 | 英語化は頼まれてから |
+
 ## 開発環境の前提
 
 - Windows(Xcode なし)。Node 24 / npm 11 を使う。Flutter と .NET SDK は入っていない。
